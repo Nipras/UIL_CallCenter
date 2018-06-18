@@ -1,6 +1,7 @@
 package com.usha.Controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,16 +43,20 @@ public class LoginController extends HttpServlet {
 		usrid = Integer.parseInt(empid);
 		} 		
 		if(dao.check(usrid, pass)){
+			System.out.println("Credentials Valid");
 			String name = dao.getName(usrid);
-
 			HttpSession session = request.getSession();
 			session.setAttribute("name", name);
 			request.getRequestDispatcher("JSP/Welcome.jsp").forward(request, response);
 			//response.sendRedirect("JSP/Welcome.jsp");
+			
 		}else{
-
-			request.getRequestDispatcher("JSP/LoginE.jsp").forward(request, response);
+			System.out.println("Credentials InValid");
+			//request.getRequestDispatcher("JSP/LoginE.jsp").forward(request, response);
 			//response.sendRedirect("JSP/LoginE.jsp");
+			response.setContentType("text/html;charset=UTF-8");		
+			PrintWriter out = response.getWriter();
+			out.write("Error");
 		}
 		
 	}

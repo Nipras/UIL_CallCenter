@@ -8,30 +8,38 @@ String path=request.getContextPath();
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="<%=path %>/CSS/login.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <title>Login page</title>
 <script>
-function fetch(event){
-	{
-		if (event.keyCode == 13 ){		        
+$(document).ready(function(){
+	
+	var loginForm = $('#loginForm'); 
+		 $(".btn_submit").click(function (event) {   	        
         
-	      $.ajax({                        
-              url:"fetch.jsp",
-              type: "Get",
-              data: {input : $('#cenId').val()},
-              dataType:"json",
-              success:function(res){
-                      for(i=0;i<res.length;i++){                    	
-                         document.getElementById("name").value = res[0].Name;
-                         document.getElementById("tl").value = res[0].Tl;
-                      }        
-              },
-              error:function() {
-                    alert("error occurred");
-              }
-           });
-   }
-	}
-}
+			event.preventDefault();
+	    	 $.ajax({
+	    		  url: '<%=path %>/Login',
+	    		  method: 'POST',
+	    		  data: loginForm.serialize(),
+	    		  success: function (res) {    			 
+	    			  if(res == 'Error'){   		
+	    			   		      
+	    				  $("#msg").html("User Authentication Failed !! Invalid Credentials");   
+	    			  }	else{
+	    				  var str = "<%=path %>" ;
+	    				  var url = str + "/JSP/Welcome.jsp"
+	    				  window.location = url.toString() ;
+	    			  }
+	    			  
+	    		  } ,
+	    		  error: function(){
+	    			  alert("Database could not be connected");
+	    		  }
+	    		});
+   });
+	});
+
 
 </script>
 </head>
@@ -43,7 +51,8 @@ function fetch(event){
 </div>
 
 <img src="<%=path %>/Images/img5.jpg" class="bg"/>
-<form action="Login" method="post">
+<div id="msg" class="err_msg"> </div>
+<form action="Login" method="post" id="loginForm">
 <div class="logonArea"> 
 	<table style="margin:10px 0px 0px 8px" >
 		<tr>
@@ -59,7 +68,7 @@ function fetch(event){
 			<td><input type="password"  name="pass"/></td>
 		</tr>
 		<tr>
-			<td colspan="2"><input type="submit" class="btn_login" value="Login"></td>			
+			<td colspan="2"><input type="button" class="btn_submit" value="Login"></td>			
 		</tr>
 	</table>
 </div>

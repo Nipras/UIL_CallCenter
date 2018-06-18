@@ -84,3 +84,24 @@ height:30px;
 	border:1px solid #000;
 	width:300px;
 }
+
+.btn_submit{	
+        width: 100px;       
+        padding: 0px;
+		border-radius: 4px;	
+		background-color:#01ee01;
+		vertical-align: middle;  
+		text-align:center; 	
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-style: italic;
+		color:#3f3f3f;
+		line-height: 25px;
+		height:25px;
+		font-weight:900;
+		cursor:pointer;
+		font-size:20px;
+		margin:4px 0px 0px 4px;
+}
+.err_msg{
+	color:#ce0110;
+}
