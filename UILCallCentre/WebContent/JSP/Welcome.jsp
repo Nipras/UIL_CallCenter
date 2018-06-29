@@ -14,8 +14,8 @@ String path=request.getContextPath();
 
 <body >
 
-<div class="header" />
-</span><span>UIL Call Center Quality Management Portal </span> <span style="float:right">Welcome ${name}</span>
+<div class="header">
+<span>UIL Call Center Quality Management Portal </span> <span style="float:right">Welcome ${name}</span>
 </div>
 <table class="mast_tbl" border="0"  >
 <tr>
@@ -37,7 +37,7 @@ String path=request.getContextPath();
 	 <tr><th>Reports</th></tr>
 	 <tr><td>
 	 <ul style="margin:0px;">
-	 <li>Detailed Audit Report</li>
+	 <li><a href="<%=path %>/JSP/report.jsp">Detailed Audit Report</a></li>
 	 <li>Summary Audit Report</li>
 	 <li>Call-Category Wise Analysis</li>
 	 </ul>	 

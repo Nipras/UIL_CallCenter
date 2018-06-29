@@ -4,7 +4,7 @@
 <%@ page language="java" import="java.text.SimpleDateFormat"%>
     <%
 String path=request.getContextPath();
-    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");  
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");  
     Date today = new Date();  
 %> 
 
@@ -18,6 +18,7 @@ String path=request.getContextPath();
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
+
 function Show(obj){
 	var currCellIndx = obj.cellIndex;
 	var x = document.getElementById("menu").rows[0].cells;    
@@ -56,7 +57,7 @@ function fetch(event){
            $.ajax({                        
               url:"fetch.jsp",
               type: "Get",
-              data: {input : $('#cenId').val()},
+              data: {input : $('#zcid').val()},
               dataType:"json",
               success:function(res){            	       
                       for(i=0;i<res.length;i++){                    	
@@ -72,51 +73,167 @@ function fetch(event){
 	}
 }
 
+function validate(){
+	var errorFlag = true;
+	var errors='';
+	var zcid = document.getElementById("zcid").value;
+	var cid = document.getElementById("complain_id").value;
+	var campaign = document.getElementById("campaign").value;
+	var date = document.getElementById("call_date").value
+	var dur = document.getElementById("call_duration").value
+	var product = document.getElementById("product").value;
+	var contact = document.getElementById("contact_num").value;
+	var contactReg = /^[\d{10}]*$/;
+	var idReg= /^[1-9]/; 
+	var dateReg=(/^(\d{4})-(\d{1,2})-(\d{1,2})\s(\d{1,2}):(\d{1,2}):(\d{1,2})$/);
+	var durReg=(/^(\d{1,2}):(\d{1,2}):(\d{1,2})$/);
+
+ 
+  
+
+			if (zcid =='' ){
+				errors=errors.concat("<li>"+"ZCentrix Id required"+"<br>");
+				errorFlag = false;
+			}
+			else if (zcid.match(idReg)==null) {
+				errors=errors+"<li>"+"Incorrect ZCentrixId"+"<br>";
+				errorFlag = false;
+			}
+			
+			 if (cid == '') {
+				errors=errors.concat("<li>"+"Complain Id required"+"<br>");
+				errorFlag = false;
+				
+			}else if ((cid.match(idReg))==null) {
+				errors=errors+"<li>"+"Incorrect ComplainId"+"<br>";
+				errorFlag = false;
+			}
+			 
+			if	(contact == ''){
+				
+				errors=errors+"<li>"+"Contact Number required"+"<br>";
+				errorFlag = false;
+			} else if(contact.match(contactReg) == null){
+				
+				errors=errors+"<li>"+"ContactNo should only contain digits"+"<br>";
+				errorFlag = false;
+			}else if (contact.length != 10) {
+				errors=errors+"<li>"+"The Contact No. must be 10 digit long!"+"<br>";
+				errorFlag = false;
+			}
+			
+			 if	(date == ''){
+				errors=errors+"<li>"+"Call date required"+"<br>";
+				errorFlag = false;
+			} else if (date.match(dateReg)==null){
+						errors=errors+"<li>"+"Incorrect Date Format, yyyy-mm-dd hh:mm:ss"+"<br>";
+						errorFlag = false;
+					}
+			
+			if	(dur == ''){
+				errors=errors+"<li>"+"Call duration required"+"<br>";
+				errorFlag = false;
+			}
+			else if (dur.match(durReg)==null){
+				errors=errors+"<li>"+"Incorrect Duration Format, hh:mm:ss"+"<br>";
+				errorFlag = false;
+			}
+			
+			 if (campaign == ''){
+				errors=errors+"<li>"+"Campaign feild required"+"<br>";
+				errorFlag = false;
+				}			
+			 
+			 if(product == "--Select Product--"){
+					errors=errors+"<li>"+"Please select a product"+"<br>";
+					errorFlag = false;
+				}
+		    
+	    	
+			if(errorFlag){
+				errors=errors.concat("Form submitted");
+				$("#err").html("errors"); 
+				return true ;
+			}else{
+				$(".backlayer").show();
+				$(".mastercontainer").show(); 
+				$("#err").html(errors); 
+				return false;
+			};	
+			
+			
+			
+			
+		
+		
+};
+
+
+
+function closePopup(){
+	$(".mastercontainer").hide();
+	
+	$(".backlayer").hide();
+	}
+	
+
+
 $(document).ready(function(){
-  //  $("#call_time").timepicker({}); 
-     var createForm = $('#callAuditForm');  
-     $("#desk_type").change(function(){
-    	 
-    	 if(this.value == 'In-Bound'){
-    		 $("#ibd").show();
-    		 $("#obd").hide();
-    	 }else{
-    		 $("#obd").show();
-    		 $("#ibd").hide();
-    	 }
-     });
-     $(".btn_submit").click(function (event) {
-    	 event.preventDefault();
-    	 $.ajax({
-    		  url: '<%=path %>/SubmitData',
-    		  method: 'POST',
-    		  data: createForm.serialize(),
-    		  success: function (res) {    			 
-    			  if(res == 'Y'){    		
-    			  $("#msg").removeClass("error"); 
-    			  $("#msg").addClass("success");
-    		      $("#msg").html("Record Inserted Successfully");    		      
-    		  }else{ 
-    			  $("#msg").removeClass("success");
-    			  $("#msg").addClass("error"); 
-    		      $("#msg").html("Record Could not be inserted"); 
-    		        
-    		  }
-    		  } ,
-    		  error: function(){
-    			  alert("Database Could not be connected");
-    		  }
-    		});
-    	
-    	
-    });
-    
-    
-    
-});
-    
+	  //  $("#call_time").timepicker({}); 
+	     var createForm = $('#callAuditForm');  
+	     $("#desk_type").change(function(){
+	    	 
+	    	 if(this.value == 'In-Bound'){
+	    		 $("#ibd").show();
+	    		 $("#obd").hide();
+	    	 }else{
+	    		 $("#obd").show();
+	    		 $("#ibd").hide();
+	    	 }
+	     });
+	     $(".btn_submit").click(function (event) {
+	    	 event.preventDefault();
+	    	 var isValid = validate();
+	    	 if(isValid){
+	    	 $.ajax({
+	    		  url: '<%=path %>/SubmitData',
+	    		  method: 'POST',
+	    		  data: createForm.serialize(),
+	    		  success: function (res) {    			 
+	    			  if(res == 'Y'){    		
+	    			  $("#msg").removeClass("error"); 
+	    			  $("#msg").addClass("success");
+	    		      $("#msg").html("Record Inserted Successfully"); 
+	    		      document.getElementById("err").innerHTML= errors ;
+	    		  }else{ 
+	    			  $("#msg").removeClass("success");
+	    			  $("#msg").addClass("error"); 
+	    			  
+	    		      $("#msg").html("Record Could not be inserted"); 
+	    		        
+	    		  }
+	    		  } ,
+	    		  error: function(){
+	    			  alert("Database Could not be connected");
+	    		  }
+	    		});
+	    	 }else{
+	    		 $("#msg").removeClass("success");
+				  $("#msg").addClass("error"); 
+	    		 $("#msg").html("Problem with form validation");
+	    		 document.getElementById("err").innerHTML= errors ;
+	    	 }
+	    	
+	    	
+	    });
+	    
+	    
+	    
+	});
 </script>
 </head>
+
+
 <body style="background-color:#fff">
 <div class="header" />
 </span><span>UIL Call Center Quality Management Portal </span> <span style="float:right">Welcome ${name}</span>
@@ -128,8 +245,8 @@ Call Monitoring Form <span id="msg" ></span><span style="float:right"><a href="W
 <div class="data-container" >
 	<table class="hdr_tbl">
 				<tr>
-					<td>Zcentrix ID</td><td> <input type="text" name="zcentrixid" id="cenId" onkeypress="fetch(event)"/></td>
-					<td>Name:</td><td> <input type="text" name="an" id="aname" disabled/></td>
+					<td>Zcentrix ID</td><td> <input type="text" name="zcentrixid" id="zcid" onkeypress="fetch(event)"/></td>
+					<td>Name:</td><td> <input type="text" name="aname" id="aname" disabled/></td>
 					<td>TL:</td><td> <input type="text" name="tl" id="tl" disabled/></td>
 					<td>Date of Activity:</td><td> <input type="text" name="doa" disabled value="<%= formatter.format(today) %>"/></td>	
 					
@@ -139,11 +256,11 @@ Call Monitoring Form <span id="msg" ></span><span style="float:right"><a href="W
 				   <td>Call Type </td><td><select type="text" name="call_type" />
 									<option>Service Request</option><option>Follow Up</option><option>Query</option>
 								  </select> </td>			
-					<td>Campaign:</td><td> <input type="text" name="campaign" /></td>
+					<td>Campaign:</td><td> <input type="text" name="campaign" id="campaign"/></td>
 					<td>Desk Type:</td><td> <select type="text" name="desk_type" id="desk_type"/>
 										<option>In-Bound</option><option>Out-Bound</option>
 									</select> </td>
-					<td>Complain Id:</td><td> <input type="text" name="complain_id" /></td>
+					<td>Complain Id:</td><td> <input type="text" name="complain_id" id="complain_id"/></td>
 					
 				</tr>
 				<tr>				
@@ -151,7 +268,7 @@ Call Monitoring Form <span id="msg" ></span><span style="float:right"><a href="W
 					<td>Call Date </td><td><input type="text" name="call_date" id="call_date"/></td>				
 					<td>Call Duration</td> <td><input type="text" name="call_dur" id="call_duration"/></td>	
 					<td>Product:</td><td> <select name="product"  id="product">
-	    										 <option value="">--Select Product--</option>
+	    										 <option value="" id="">--Select Product--</option>
 	    										 <option value="">Agro</option>    										
 	    										 <option value="">Cooking Appliance</option>
 	    										 <option value="">Courtesy Visit</option>
@@ -227,7 +344,7 @@ Call Monitoring Form <span id="msg" ></span><span style="float:right"><a href="W
 						<td>5</td>
 						<td><input type="radio" name="1bi" value="0"></td>
 						<td> 0</td>
-				</td>
+				
 				</tr>
 				</table>
 				<table id="2ibd" style="display:none" class="menuDtl_tbl">
@@ -574,8 +691,16 @@ Call Monitoring Form <span id="msg" ></span><span style="float:right"><a href="W
 				</tr>
 				</table>
 			</div> 
-</div>			
-<div class="btn_submit" id="submit" >
+<div class="backlayer" style="display:none"></div>
+
+	<div class="mastercontainer" style="display:none" draggable="true">
+	<div class="heading">Errors
+ 	<span class="close_icon" onclick="closePopup()"> X </span> 
+ 	</div>
+	<div id="err" style="font-size:20px;color:#2E4053;"></div>
+</div>
+
+<div class="btn_submit" id="submit"  >
 Submit
 </div>
 

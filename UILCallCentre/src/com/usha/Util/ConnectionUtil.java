@@ -23,7 +23,7 @@ public static Connection getConnection()
     try
     {       
     	Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/uil_callcenter", "root", "root@1234A");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/uil_callcenter", "root", "password");
         
     }
     catch(Exception e)

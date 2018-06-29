@@ -6,7 +6,7 @@
     final String jdbcdriver="com.mysql.jdbc.Driver";
     final String url="jdbc:mysql://localhost:3306/uil_callcenter";
     final String user="root";
-    final String pass="root@1234A";
+    final String pass="password";
     
     Connection con = null;
     Statement stmt = null;
@@ -14,7 +14,7 @@
     JSONArray array =  new JSONArray();
     JSONObject obj = new JSONObject();    
     try{
-        Class.forName(jdbcdriver);
+    	Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection(url,user,pass);
         String query;        
         stmt = con.createStatement();

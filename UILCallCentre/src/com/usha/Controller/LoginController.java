@@ -16,7 +16,7 @@ import java.lang.*;
 /**
  * Servlet implementation class LoginController
  */
-@WebServlet("/LoginController")
+
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,6 +34,7 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Inside Controller");
 		int usrid = 0 ;
 		String empid = request.getParameter("empid");
 

@@ -1,67 +1,3 @@
-@CHARSET "ISO-8859-1";
-.menu_tbl{
-	background-color:#e0e0e0;
-	width:100%;
-	margin-top:2px;
-	
-	color:#3f3f3f;
-}
-.menu_tbl td {
-	background-color:#01ee01;
-	color:#3f3f3f;
-	font-size:18px;
-	padding:6px;	
-	border-right:1px solid #3f3f3f;
-	cursor:pointer;
-	
-}
-
-.hdr_tbl{
-background-color:#e0e0e0;
-width:90%;
-margin-top:0px;
-margin-left:18px;
-font-size:16px;
-font-family:Georgia;
-color:#3f3f3f;
-
-}
-.hdr_tbl td{
-padding:2px;
-
-}
-.menuDtl_tbl{
-	background-color:#e0e0e0;
-	width:90%;
-	padding:15px;
-	font-size:18px;
-	color:#3f3f3f;
-	height:270px;
-	
-}
-.menuDtl_tbl td{
-	background-color:#e0e0e0;
-	margin:4px;
-	padding:6px;
-	font-family: Georgia;
-	
-}
-input[type=text]{
-width:150px;
-height:15px;
-margin-right:2px;
-}
-select{
-width:200px;}
-
-.data-container{
-	border:3px solid #000;
-	background-color:#e0e0e0;
-}
-table{
-	border-collapse:collapse;
-}
-
 .header{
 font-size:20px;
 font-weight:500;
@@ -79,19 +15,27 @@ font-family: Sans-Serif;
 text-align:center;
 height:30px;
 }
-
-input[type=radio] {
-    text-align:left; 
-    height: 2em;
-    width:2em;
-}
 .header_txt{
 	font-size:24px;
 	font-weight:800;
 	color:#3f3f3f;
 	margin-top:10px;
 }
-.btn_submit{
+.data-container{
+	border:3px solid #000;
+	background-color:#e0e0e0;
+}
+.hdr_tbl{
+background-color:#e0e0e0;
+width:90%;
+margin-top:0px;
+margin-left:18px;
+font-size:16px;
+font-family:Georgia;
+color:#3f3f3f;
+
+}
+.search{
 		height: 30px;
         width: 120px;       
         padding: 0px;
@@ -109,18 +53,6 @@ input[type=radio] {
 		font-size:20px;
 		margin:4px 0px 0px 10px;
 }
-.success{
-	font-size:18px;
-	color:#00a800;
-	font-weight:600;
-	margin-left:50px
-}
-.error{
-	font-size:18px;
-	color:#ff0000;
-	font-weight:600;
-	margin-left:50px;
-}
 .close_icon:hover,
 .close_icon{
 float:right;
@@ -129,7 +61,7 @@ height:30px;
 font-size:18px;
 margin-top:-15px;
 margin-right:-15px;
-background-color:black;
+background-color:#BA4636;
 color:#F0F3F4;
 border:1px solid #2E4053;
 border-radius:20px;
@@ -139,17 +71,6 @@ font-weight:800;
 font-family:Arial Black;
 cursor:pointer;
 }
-.heading{
-	height: 100%;
-	background-color:#DF0418;
-	color:white;
-	height:50px;
-	line-height:50px;
-	vertical-align:top;
-	text-align:center;
-	font-weight:900;
-	font-family:georgia;
-	}
 .backlayer{
     height: 100%;
     width: 100%;
